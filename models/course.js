@@ -1,20 +1,35 @@
-const { Model, Datatypes } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   class Course extends Model {}
   Course.init(
     {
-      title: Datatypes.STRING,
-      description: Datatypes.TEXT,
-      estimatedTime: Datatypes.STRING,
-      materialsNeeded: Datatypes.STRING,
-      //   userId - created in model associations
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Title is required" },
+          notEmpty: { msg: "Title is required" },
+        },
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Description is required" },
+          notEmpty: { msg: "Description is required" },
+        },
+      },
+      estimatedTime: { type: DataTypes.STRING },
+      materialsNeeded: { type: DataTypes.STRING },
     },
     { sequelize }
   );
 
   Course.associate = (models) => {
-    Course.hasMany(models.User, {});
+    Course.belongsTo(models.User, {
+      foreignKey: { fieldName: "userId" },
+    });
   };
 
   return Course;
