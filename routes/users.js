@@ -1,17 +1,20 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
 const router = express.Router();
 const { User } = require("../models");
 const { asyncHandler } = require("../middleware/async-handler");
 const { authenticateUser } = require("../middleware/auth-user");
 
-/** GET all users */
+/** GET active user */
 router.get(
   "/users",
   authenticateUser,
   asyncHandler(async (req, res) => {
-    const users = await User.findAll();
-    await res.status(200).json(users);
+    const user = {
+      firstName: req.currentUser.firstName,
+      lastName: req.currentUser.lastName,
+      emailAddress: req.currentUser.emailAddress,
+    };
+    await res.status(200).json(user);
   })
 );
 

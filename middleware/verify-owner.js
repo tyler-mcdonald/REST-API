@@ -1,17 +1,18 @@
 const { Course } = require("../models");
 
+/**
+ * Verify that the authenticated user owns the course
+ */
 exports.verifyCourseOwner = async (req, res, next) => {
   const course = await Course.findByPk(req.params.id);
   const method = req.method;
   let message;
 
-  // Pass to next() or throw 401 status
-  if (req.body.userId === course.userId) next();
+  if (req.currentUser.id === course.userId) return next();
   else if (method === "PUT") {
-    message = "You must be the course owner to update the course.";
+    message = "Only the owner can update the course.";
   } else if (method === "DELETE") {
-    message = "You must be the course owner to delete the course.";
+    message = "Only the owner can delete the course.";
   }
-
-  res.status(401).json({ message });
+  res.status(403).json({ message });
 };

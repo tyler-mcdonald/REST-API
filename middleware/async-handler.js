@@ -1,5 +1,5 @@
 /**
- * Wraps a provided async callback function within a try catch block.
+ * Wraps the provided callback function within an async function and try/catch block.
  * @param {function} cb - the callback function to be executed in the try statement
  */
 exports.asyncHandler = (cb) => {
@@ -14,7 +14,6 @@ exports.asyncHandler = (cb) => {
         const errors = error.errors.map((err) => err.message);
         res.status(400).json({ errors });
       } else {
-        // Forward error to the global error handler
         next(error);
       }
     }

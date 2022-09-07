@@ -25,7 +25,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-          //  this only works when connected to db
           msg: "Email is already associated with an account",
         },
         validate: {
