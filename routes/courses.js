@@ -4,7 +4,7 @@ const { asyncHandler } = require("../middleware/async-handler");
 const { authenticateUser } = require("../middleware/auth-user");
 const { verifyCourseOwner } = require("../middleware/verify-owner");
 const { verifyResource } = require("../middleware/verify-resource");
-const { Course } = require("../models");
+const { Course, User } = require("../models");
 
 /** GET all courses */
 router.get(
@@ -12,6 +12,10 @@ router.get(
   asyncHandler(async (req, res) => {
     const courses = await Course.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: {
+        model: User,
+        attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+      },
     });
     await res.status(200).json(courses);
   })
@@ -22,7 +26,6 @@ router.get(
   "/courses/:id",
   verifyResource,
   asyncHandler(async (req, res) => {
-    // const course = await Course.findByPk(req.params.id);
     res.status(200).json(req.course);
   })
 );
