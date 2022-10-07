@@ -1,6 +1,6 @@
-# REST-API
+# myCourses-api
 
-A REST API for course and user information.
+A REST API to communicate with PostgreSQL database and serve data to myCourses client.
 
 ## Quickstart
 
