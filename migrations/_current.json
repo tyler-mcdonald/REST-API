@@ -1,0 +1,162 @@
+{
+    "tables": {
+        "Courses": {
+            "tableName": "Courses",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "title": {
+                    "allowNull": false,
+                    "validate": {
+                        "notNull": {
+                            "msg": "Title is required"
+                        },
+                        "notEmpty": {
+                            "msg": "Title is required"
+                        }
+                    },
+                    "field": "title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "description": {
+                    "allowNull": false,
+                    "validate": {
+                        "notNull": {
+                            "msg": "Description is required"
+                        },
+                        "notEmpty": {
+                            "msg": "Description is required"
+                        }
+                    },
+                    "field": "description",
+                    "seqType": "Sequelize.TEXT"
+                },
+                "estimatedTime": {
+                    "field": "estimatedTime",
+                    "seqType": "Sequelize.STRING"
+                },
+                "materialsNeeded": {
+                    "field": "materialsNeeded",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "userId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "userId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "UserId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "UserId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Users": {
+            "tableName": "Users",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "firstName": {
+                    "allowNull": false,
+                    "validate": {
+                        "notNull": {
+                            "msg": "First name is required"
+                        },
+                        "notEmpty": {
+                            "msg": "First name cannot be empty"
+                        }
+                    },
+                    "field": "firstName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "lastName": {
+                    "allowNull": false,
+                    "validate": {
+                        "notNull": {
+                            "msg": "Last name is required"
+                        },
+                        "notEmpty": {
+                            "msg": "Last name cannot be empty"
+                        }
+                    },
+                    "field": "lastName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "emailAddress": {
+                    "allowNull": false,
+                    "unique": {
+                        "msg": "Email is already associated with an account"
+                    },
+                    "validate": {
+                        "notNull": {
+                            "msg": "Email is required"
+                        },
+                        "isEmail": {
+                            "msg": "Email must be a valid email address"
+                        }
+                    },
+                    "field": "emailAddress",
+                    "seqType": "Sequelize.STRING"
+                },
+                "password": {
+                    "allowNull": false,
+                    "validate": {
+                        "notNull": {
+                            "msg": "Password is required"
+                        },
+                        "notEmpty": {
+                            "msg": "Password cannot be empty"
+                        }
+                    },
+                    "field": "password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 1
+}
